@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Awwab Privacy Policy</title>
+<style>
+  :root {
+    --ink: #1c1b19;
+    --muted: #6b6763;
+    --ground: #fbfaf8;
+    --rule: #e3ded8;
+    --link: #8a5a2b;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --ink: #eae6e0;
+      --muted: #9d9892;
+      --ground: #171614;
+      --rule: #322e2a;
+      --link: #d9a15f;
+    }
+  }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0;
+    background: var(--ground);
+    color: var(--ink);
+    font: 17px/1.6 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  }
+  main { max-width: 40rem; margin: 0 auto; padding: 3rem 1.25rem 5rem; }
+  h1 { font-size: 1.6rem; line-height: 1.25; margin: 0 0 .25rem; }
+  h2 { font-size: 1.05rem; margin: 2.25rem 0 .5rem; }
+  .updated { color: var(--muted); font-size: .9rem; margin: 0 0 2rem; }
+  ul { padding-inline-start: 1.25rem; }
+  li { margin-bottom: .6rem; }
+  a { color: var(--link); }
+  code { font-size: .9em; }
+</style>
+</head>
+<body>
+<main>
+<h1>Awwab Privacy Policy</h1>
+<p class="updated">Last updated: 18 September 2026</p>
+<p>Awwab is a personal prayer tracker. What you record stays on your device.</p>
+<h2>The short version</h2>
+<p>Your prayer log, your settings, your reminder times and your coordinates all stay on the device. The app uploads or syncs none of them.</p>
+<p>What leaves is small and goes to three places: your coordinates to the system's geocoder, to become a place name; crash reports and launch counts to Google; and an update check to Expo. The section below says what each carries.</p>
+<p>None of it is sold or shared for anyone else's purposes, and there is no advertising and no tracking across other apps or websites. There are no accounts and no server of ours. Everything that does leave travels over an encrypted connection.</p>
+<h2>What the app stores, and where</h2>
+<ul>
+  <li><strong>Your prayer log</strong>, the statuses you record for each prayer, is stored in a database on your device.</li>
+  <li><strong>Your settings</strong>, meaning theme, language, calculation method, madhab, reminder times and the answer you give about gender at first launch, are stored alongside it. The gender answer only decides which prayer statuses the app offers.</li>
+  <li><strong>Reminders and prayer time notifications</strong> are scheduled locally. The app uses no push notification service.</li>
+  <li><strong>The widgets</strong> read that same database and those same settings, through a container shared with the app. On iOS they also read your location themselves, when the system allows widgets to, so their prayer times follow you when you travel. That reading is kept in the same container on your device.</li>
+</ul>
+<h2>Location</h2>
+<p>If you grant location access, the app reads your coordinates to calculate prayer times and to suggest a calculation method. It reads them again on launch only to notice that you may have travelled. While the Qibla compass is open, it also reads which way the phone is pointing, under the same permission. The coordinates are stored on your device and go nowhere but the geocoder described below.</p>
+<p>The app works without location. Prayer times are simply not shown.</p>
+<h2>What leaves the device, and to whom</h2>
+<p><strong>The system's geocoder.</strong> To name your city, the app asks the system's geocoding service, Apple's on iOS and Google's on Android, which receives your coordinates. Nothing comes back to us.</p>
+<p><strong>Google.</strong> The app uses two Firebase services. Crashlytics sends a report when the app crashes: the technical details of the crash, the device and app version, and two settings, your language and appearance. Analytics counts launches and sessions, with the device and app version, your language, and a country and city derived from your IP address. Each install is known by a random identifier that is discarded when you delete the app. Neither is given your prayer log, reminder times, place name or coordinates. No advertising identifier is read, and ad personalization is off. Google keeps crash reports for 90 days, usage events for 2 months, and the install's own record for 14 months after its last activity.</p>
+<p><strong>Expo.</strong> On each launch the app asks an update server, run by Expo, whether newer app code exists, sending its platform, version, channel, a random install identifier and, like any request, the address it came from. If the previous launch ended in a fatal error, the request also carries the first thousand characters of that error, so a broken version can be recognised and replaced. Expo keeps these request records for as long as its update service needs them.</p>
+<p><strong>Why this is allowed.</strong> Your coordinates reach the geocoder because you granted location access, which you can withdraw in the system settings. The crash reports, the launch counts and the update check rest on our legitimate interest in an app that works and keeps working, and in knowing that it is used; none of them carries anything you recorded, and deleting the app ends them.</p>
+<p><strong>Turning it off.</strong> Neither has a switch of its own. Deleting the app stops all of it and discards the identifiers. Reports already sent expire on the schedules above.</p>
+<p>Apple, Google and Expo act under their own terms, <a href="https://www.apple.com/legal/privacy/">https://www.apple.com/legal/privacy/</a>, <a href="https://firebase.google.com/support/privacy">https://firebase.google.com/support/privacy</a> and <a href="https://expo.dev/privacy">https://expo.dev/privacy</a>, and none of them is given this data except under terms that require protecting it at least as this page describes. Google and Expo hold what they receive on servers outside your country, including in the United States, under the EU-US Data Privacy Framework and its UK extension, which both are certified under, and the European Commission's standard contractual clauses, which Google publishes. Apple's transfers of the geocoding request out of Europe are governed by standard contractual clauses, available from Apple on request.</p>
+<h2>Your choices</h2>
+<p>Location access can be withdrawn at any time in the system settings, and so can notifications. The app keeps working without either.</p>
+<p>Deleting the app removes everything it stored.</p>
+<p>You have the right to see what is held about you, to have it corrected or erased, to restrict or object to its use, and to receive it in a portable form. Nothing here is held against a name, an email or an account, so a request to see, correct or erase cannot be matched to any record. You may still object or ask at the address below, and you may complain to the data protection authority where you live.</p>
+<h2>Changes</h2>
+<p>This page changes as the app does, and the date at the top says when it last changed.</p>
+<h2>Who is responsible, and how to get in touch</h2>
+<p>Awwab is made by Ahmed Nabil.</p>
+<p>Questions about this policy: ahmednmourad.dev@gmail.com</p>
+</main>
+</body>
+</html>
