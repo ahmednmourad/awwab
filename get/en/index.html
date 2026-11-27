@@ -1,0 +1,198 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="utf-8">
+<base href="../">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Awwab</title>
+<!--
+  The link Invite a friend shares. A phone is sent on to its own store before
+  the page paints; a computer, or a phone with scripts off, stays on the page,
+  where a computer gets a code to scan with the phone. The page speaks Arabic
+  to a browser set to Arabic and English to every other. WhatsApp and other
+  apps build the link's card from the og tags without running the script, and
+  the publish fills the double-braced slots below once for each language's link.
+  For a look at the page as a phone or in the other language: ?stay keeps a
+  phone on it, and ?lang=ar or ?lang=en picks the language.
+-->
+<script>
+  (function () {
+    var ua = navigator.userAgent;
+    var query = location.search || '';
+    // An iPad asks for desktop pages and names itself a Mac. A Mac has no
+    // touch screen.
+    var apple = /iPhone|iPad|iPod/.test(ua) || (/Macintosh/.test(ua) && navigator.maxTouchPoints > 1);
+    var android = /Android/.test(ua);
+    var root = document.documentElement;
+    root.setAttribute('data-device', apple ? 'apple' : android ? 'android' : 'computer');
+    var picked = /[?&]lang=(ar|en)\b/.exec(query);
+    var first = (navigator.languages && navigator.languages[0]) || navigator.language || '';
+    if (picked ? picked[1] === 'ar' : /^ar\b/i.test(first)) {
+      root.lang = 'ar';
+      root.dir = 'rtl';
+    }
+    var store = apple
+      ? 'https://apps.apple.com/app/id6811419666'
+      : android
+        ? 'https://play.google.com/store/apps/details?id=com.ahmednmourad.awwab'
+        : null;
+    if (store && !/[?&]stay\b/.test(query)) location.replace(store);
+  })();
+</script>
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://ahmednmourad.github.io/awwab/get/en/">
+<meta property="og:title" content="Awwab: Salah &amp; Prayer Tracker">
+<meta property="og:description" content="Log each prayer and its sunnahs in one tap, make up the ones you missed, and watch your salah grow steadier week by week. 100% free, with no ads, on iPhone and Android.">
+<meta property="og:image" content="https://ahmednmourad.github.io/awwab/get/en/card.jpg?v=2026b77bc8">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="900">
+<meta name="description" content="Log each prayer and its sunnahs in one tap, make up the ones you missed, and watch your salah grow steadier week by week. 100% free, with no ads, on iPhone and Android.">
+<meta name="theme-color" content="#06102C">
+<link rel="apple-touch-icon" href="icon.png">
+<style>
+  :root {
+    --night: #050C24;
+    --ink: #FFFFFF;
+    --soft: #C9D6F5;
+    --faint: #9EAFD9;
+    --focus: #8DB8FF;
+    color-scheme: dark;
+  }
+  html { background: var(--night); -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0;
+    color: var(--ink);
+    font: 17px/1.45 -apple-system, BlinkMacSystemFont, "SF Pro", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  html[lang=ar] body { font-family: -apple-system, BlinkMacSystemFont, "SF Arabic", "Segoe UI", "Noto Sans Arabic", Tahoma, sans-serif; }
+  html:not([lang=ar]) .ar, html[lang=ar] .en { display: none; }
+  ::selection { background: rgba(71, 132, 210, .55); color: #fff; }
+  a:focus-visible { outline: 3px solid var(--focus); outline-offset: 3px; }
+
+  .stage { position: relative; isolation: isolate; overflow: hidden; min-height: 100vh; min-height: 100svh; }
+
+  /* The store screenshots' sky: night at either end, the day's glow behind
+     the phones and a horizon light under them. Arabic mirrors it, as the
+     store's Arabic gallery does. */
+  .sky {
+    position: absolute; inset: 0; z-index: -1;
+    background:
+      radial-gradient(42% 52% at 68% 30%, rgba(150, 186, 236, .92) 0%, rgba(78, 134, 210, .5) 42%, rgba(36, 70, 148, 0) 100%),
+      radial-gradient(55% 42% at 68% 100%, rgba(152, 192, 236, .85) 0%, rgba(120, 160, 222, .35) 50%, rgba(120, 160, 222, 0) 100%),
+      linear-gradient(90deg, #050C24 0%, #091536 26%, #18357A 46%, #3C74C3 60%, #355FAE 74%, #12204A 90%, #040819 100%);
+  }
+  html[dir=rtl] .sky { transform: scaleX(-1); }
+  .sky .stars { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .sky .moon { position: absolute; top: 9%; left: 88%; width: clamp(26px, 2.6vw, 40px); height: auto; }
+
+  .copy { position: relative; z-index: 2; box-sizing: border-box; width: min(37vw, 520px); padding-block: 10vh 6vh; margin-inline-start: 7vw; }
+  .brand { display: flex; align-items: center; gap: 12px; font-size: 21px; font-weight: 600; }
+  .brand img { width: 44px; height: 44px; border-radius: 10px; }
+  h1 { margin: 7vh 0 0; font-size: clamp(46px, 5.3vw, 84px); line-height: 1.02; font-weight: 800; letter-spacing: -.03em; text-wrap: balance; }
+  html[lang=ar] h1 { letter-spacing: 0; line-height: 1.2; }
+  .sub { margin: 22px 0 0; font-size: clamp(18px, 1.5vw, 21px); line-height: 1.45; color: var(--soft); }
+  .trust { margin: 10px 0 0; font-size: 15px; line-height: 1.45; color: var(--faint); }
+  html[lang=ar] .sub, html[lang=ar] .trust { font-weight: 500; }
+
+  .get { display: flex; align-items: center; gap: 22px; margin-top: 5vh; }
+  .qr { flex: none; display: block; padding: 11px; border-radius: 18px; background: #fff; box-shadow: 0 18px 44px rgba(2, 8, 30, .5); }
+  .qr svg { display: block; width: clamp(118px, 10vw, 148px); height: auto; }
+  .scan { margin: 0 0 12px; font-size: 16px; font-weight: 600; }
+  /* The stores' own badges, as Apple and Google supply them in each language, unaltered: one height, set by Apple's
+     guidelines' 40px floor and Google's 28px, both well cleared. */
+  .badges { display: flex; flex-wrap: wrap; gap: 10px; }
+  .badge { display: block; border-radius: 9px; }
+  .badge img { display: block; height: 52px; width: auto; }
+
+  /* A phone sees only its own store's badge, and no code to scan. */
+  [data-device=apple] .play, [data-device=android] .apple,
+  [data-device=apple] .qr, [data-device=android] .qr,
+  [data-device=apple] .scan, [data-device=android] .scan { display: none; }
+  [data-device=apple] .badge img, [data-device=android] .badge img { height: 58px; }
+
+  /* Three phones stand in the sky and run off its foot through empty screen,
+     as on the store screenshots: each capture is cut where those cut it. */
+  .phones { position: absolute; z-index: 1; bottom: 0; inset-inline-end: 3vw; display: flex; align-items: flex-end; }
+  .phone {
+    --w: min(30vh, 18.5vw);
+    position: relative; box-sizing: border-box; width: var(--w); padding: calc(var(--w) * .034) calc(var(--w) * .034) 0;
+    border-radius: calc(var(--w) * .15) calc(var(--w) * .15) 0 0; background: #0B0C10;
+    box-shadow: inset 0 0 0 1.5px rgba(255, 255, 255, .16), 0 30px 70px rgba(2, 8, 30, .55);
+    animation: rise .9s cubic-bezier(.16, 1, .3, 1) both;
+  }
+  .phone.mid { --w: min(34vh, 21vw); z-index: 2; margin-inline: -1.4vw; animation-delay: .06s; }
+  .phone + .phone + .phone { animation-delay: .12s; }
+  .phone img { display: block; width: 100%; height: auto; border-radius: calc(var(--w) * .118) calc(var(--w) * .118) 0 0; }
+  .phone::before {
+    content: ""; position: absolute; z-index: 1; top: calc(var(--w) * .057); left: 50%; width: 27%; height: calc(var(--w) * .078);
+    transform: translateX(-50%); border-radius: 999px; background: #000;
+  }
+  @keyframes rise { from { transform: translateY(7%); opacity: .4; } }
+  @media (prefers-reduced-motion: reduce) { .phone { animation: none; } }
+
+  @media (max-width: 1100px) {
+    .stage { display: flex; flex-direction: column; }
+    .copy { width: 100%; max-width: 620px; padding: 32px 22px 0; margin-inline: auto; }
+    h1 { margin-top: 32px; font-size: clamp(40px, 10.5vw, 60px); }
+    .get { margin-top: 30px; }
+    .phones { position: relative; inset: auto; justify-content: center; margin-top: auto; padding-top: 40px; }
+    .phone { --w: min(33vw, 250px); }
+    .phone.mid { --w: min(40vw, 300px); margin-inline: -3vw; }
+  }
+</style>
+</head>
+<body>
+<main class="stage">
+  <div class="sky" aria-hidden="true">
+    <svg class="stars" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice" fill="#fff"><circle cx="0" cy="571" r="0.8" opacity="0.38"/><circle cx="1328" cy="501" r="0.6" opacity="0.56"/><circle cx="1329" cy="427" r="1.2" opacity="0.60"/><circle cx="1313" cy="563" r="0.9" opacity="0.45"/><circle cx="220" cy="185" r="1.0" opacity="0.43"/><circle cx="1350" cy="346" r="1.3" opacity="0.78"/><circle cx="84" cy="170" r="1.1" opacity="0.56"/><circle cx="607" cy="120" r="1.5" opacity="0.28"/><circle cx="1305" cy="284" r="1.4" opacity="0.63"/><circle cx="1353" cy="246" r="1.3" opacity="0.40"/><circle cx="160" cy="508" r="0.6" opacity="0.49"/><circle cx="221" cy="48" r="1.6" opacity="0.38"/><circle cx="198" cy="572" r="1.5" opacity="0.78"/><circle cx="15" cy="154" r="0.6" opacity="0.25"/><circle cx="170" cy="303" r="0.5" opacity="0.80"/><circle cx="30" cy="558" r="0.7" opacity="0.83"/><circle cx="383" cy="138" r="0.7" opacity="0.59"/><circle cx="75" cy="477" r="1.3" opacity="0.68"/><circle cx="159" cy="570" r="0.6" opacity="0.66"/><circle cx="1286" cy="23" r="1.5" opacity="0.77"/><circle cx="1430" cy="592" r="1.3" opacity="0.50"/><circle cx="357" cy="451" r="1.5" opacity="0.49"/><circle cx="338" cy="251" r="1.5" opacity="0.59"/><circle cx="286" cy="193" r="1.6" opacity="0.85"/><circle cx="1322" cy="124" r="1.2" opacity="0.33"/><circle cx="430" cy="336" r="0.7" opacity="0.68"/><circle cx="419" cy="146" r="1.2" opacity="0.51"/><circle cx="108" cy="479" r="1.4" opacity="0.80"/><circle cx="1310" cy="422" r="1.6" opacity="0.27"/><circle cx="53" cy="84" r="0.6" opacity="0.31"/><circle cx="122" cy="6" r="1.2" opacity="0.82"/><circle cx="276" cy="83" r="0.7" opacity="0.65"/><circle cx="350" cy="283" r="1.6" opacity="0.50"/><circle cx="88" cy="143" r="1.4" opacity="0.83"/><circle cx="220" cy="574" r="1.1" opacity="0.32"/><circle cx="303" cy="374" r="0.7" opacity="0.30"/><circle cx="393" cy="401" r="1.1" opacity="0.54"/><circle cx="1431" cy="47" r="1.0" opacity="0.44"/><circle cx="6" cy="4" r="1.0" opacity="0.30"/><circle cx="337" cy="573" r="1.4" opacity="0.71"/><circle cx="1386" cy="497" r="1.2" opacity="0.59"/><circle cx="1378" cy="605" r="0.9" opacity="0.30"/><circle cx="1375" cy="488" r="0.7" opacity="0.39"/><circle cx="1318" cy="496" r="1.2" opacity="0.68"/><circle cx="569" cy="116" r="1.1" opacity="0.39"/><circle cx="1294" cy="510" r="0.9" opacity="0.66"/><circle cx="1263" cy="72" r="0.8" opacity="0.80"/><circle cx="2" cy="82" r="0.9" opacity="0.26"/><circle cx="249" cy="131" r="1.5" opacity="0.67"/><circle cx="252" cy="72" r="1.2" opacity="0.26"/><circle cx="1375" cy="340" r="1.1" opacity="0.72"/><circle cx="65" cy="380" r="0.7" opacity="0.60"/><circle cx="361" cy="138" r="1.2" opacity="0.63"/><circle cx="1304" cy="33" r="1.3" opacity="0.49"/><circle cx="1324" cy="311" r="1.4" opacity="0.50"/><circle cx="1236" cy="118" r="1.3" opacity="0.34"/><circle cx="180" cy="588" r="1.6" opacity="0.28"/><circle cx="111" cy="162" r="1.5" opacity="0.77"/><circle cx="1377" cy="172" r="0.7" opacity="0.27"/><circle cx="204" cy="200" r="1.0" opacity="0.39"/><circle cx="79" cy="28" r="0.6" opacity="0.63"/><circle cx="94" cy="450" r="1.2" opacity="0.51"/><circle cx="96" cy="49" r="0.9" opacity="0.46"/><circle cx="288" cy="397" r="0.6" opacity="0.28"/><circle cx="2" cy="518" r="1.5" opacity="0.28"/><circle cx="1430" cy="127" r="1.2" opacity="0.51"/><circle cx="48" cy="107" r="1.3" opacity="0.70"/><circle cx="359" cy="532" r="1.4" opacity="0.44"/><circle cx="365" cy="547" r="1.5" opacity="0.66"/><circle cx="1244" cy="101" r="1.4" opacity="0.65"/></svg>
+    <svg class="moon" viewBox="0 0 40 40"><defs><mask id="moon-cut"><rect width="40" height="40" fill="#fff"/><circle cx="28" cy="14" r="13" fill="#000"/></mask></defs><circle cx="20" cy="20" r="15" fill="#F5F1E4" mask="url(#moon-cut)"/></svg>
+  </div>
+
+  <div class="copy">
+    <div class="brand"><img src="icon.png" alt=""><span class="en">Awwab</span><span class="ar">أَوَّاب</span></div>
+    <h1><span class="en">Your prayer companion</span><span class="ar">رفيقك في صلاتك</span></h1>
+    <p class="sub"><span class="en">Log each prayer as you pray it, make up what you missed, and see how far you've come.</span><span class="ar">سجل كل صلاة حين تصليها، واقض ما فاتك، وشاهد كم تقدمت.</span></p>
+    <p class="trust"><span class="en">100% free, with no ads, and everything you log stays on your device.</span><span class="ar">مجاني بالكامل وبلا إعلانات، وكل ما تسجله يبقى على جهازك.</span></p>
+
+    <div class="get">
+      <div class="qr" role="img" aria-label="QR code for this page"><svg viewBox="0 0 29 29" shape-rendering="crispEdges"><path fill="#000" d="M0 0h7v1h-7zM10 0h1v1h-1zM12 0h8v1h-8zM22 0h7v1h-7zM0 1h1v1h-1zM6 1h1v1h-1zM8 1h2v1h-2zM11 1h2v1h-2zM14 1h2v1h-2zM17 1h1v1h-1zM19 1h2v1h-2zM22 1h1v1h-1zM28 1h1v1h-1zM0 2h1v1h-1zM2 2h3v1h-3zM6 2h1v1h-1zM10 2h1v1h-1zM12 2h1v1h-1zM15 2h2v1h-2zM19 2h1v1h-1zM22 2h1v1h-1zM24 2h3v1h-3zM28 2h1v1h-1zM0 3h1v1h-1zM2 3h3v1h-3zM6 3h1v1h-1zM9 3h2v1h-2zM12 3h1v1h-1zM14 3h2v1h-2zM18 3h2v1h-2zM22 3h1v1h-1zM24 3h3v1h-3zM28 3h1v1h-1zM0 4h1v1h-1zM2 4h3v1h-3zM6 4h1v1h-1zM8 4h1v1h-1zM10 4h1v1h-1zM12 4h1v1h-1zM14 4h2v1h-2zM19 4h1v1h-1zM22 4h1v1h-1zM24 4h3v1h-3zM28 4h1v1h-1zM0 5h1v1h-1zM6 5h1v1h-1zM9 5h2v1h-2zM14 5h6v1h-6zM22 5h1v1h-1zM28 5h1v1h-1zM0 6h7v1h-7zM8 6h1v1h-1zM10 6h1v1h-1zM12 6h1v1h-1zM14 6h1v1h-1zM16 6h1v1h-1zM18 6h1v1h-1zM20 6h1v1h-1zM22 6h7v1h-7zM10 7h1v1h-1zM12 7h4v1h-4zM17 7h1v1h-1zM20 7h1v1h-1zM0 8h1v1h-1zM2 8h1v1h-1zM4 8h1v1h-1zM6 8h1v1h-1zM9 8h1v1h-1zM11 8h1v1h-1zM13 8h1v1h-1zM16 8h2v1h-2zM19 8h2v1h-2zM24 8h1v1h-1zM27 8h1v1h-1zM3 9h2v1h-2zM7 9h1v1h-1zM12 9h2v1h-2zM16 9h1v1h-1zM21 9h2v1h-2zM25 9h1v1h-1zM28 9h1v1h-1zM0 10h1v1h-1zM2 10h1v1h-1zM4 10h1v1h-1zM6 10h3v1h-3zM10 10h1v1h-1zM12 10h1v1h-1zM18 10h1v1h-1zM20 10h5v1h-5zM26 10h3v1h-3zM1 11h1v1h-1zM3 11h1v1h-1zM7 11h2v1h-2zM11 11h1v1h-1zM13 11h2v1h-2zM16 11h2v1h-2zM19 11h3v1h-3zM27 11h1v1h-1zM1 12h4v1h-4zM6 12h1v1h-1zM8 12h1v1h-1zM13 12h1v1h-1zM17 12h1v1h-1zM20 12h3v1h-3zM25 12h1v1h-1zM27 12h2v1h-2zM1 13h2v1h-2zM4 13h2v1h-2zM9 13h1v1h-1zM11 13h4v1h-4zM16 13h3v1h-3zM20 13h3v1h-3zM25 13h1v1h-1zM28 13h1v1h-1zM2 14h1v1h-1zM5 14h5v1h-5zM12 14h1v1h-1zM21 14h1v1h-1zM23 14h3v1h-3zM27 14h2v1h-2zM0 15h5v1h-5zM7 15h1v1h-1zM10 15h2v1h-2zM13 15h1v1h-1zM16 15h4v1h-4zM21 15h2v1h-2zM24 15h2v1h-2zM27 15h1v1h-1zM0 16h4v1h-4zM6 16h2v1h-2zM10 16h5v1h-5zM17 16h1v1h-1zM20 16h3v1h-3zM25 16h1v1h-1zM27 16h2v1h-2zM9 17h1v1h-1zM16 17h2v1h-2zM20 17h3v1h-3zM25 17h2v1h-2zM28 17h1v1h-1zM0 18h1v1h-1zM3 18h5v1h-5zM10 18h4v1h-4zM17 18h2v1h-2zM20 18h2v1h-2zM24 18h1v1h-1zM27 18h2v1h-2zM1 19h2v1h-2zM5 19h1v1h-1zM8 19h2v1h-2zM12 19h4v1h-4zM17 19h1v1h-1zM23 19h3v1h-3zM27 19h1v1h-1zM0 20h1v1h-1zM2 20h2v1h-2zM5 20h3v1h-3zM12 20h1v1h-1zM14 20h1v1h-1zM16 20h3v1h-3zM20 20h5v1h-5zM8 21h1v1h-1zM10 21h1v1h-1zM12 21h1v1h-1zM16 21h1v1h-1zM20 21h1v1h-1zM24 21h1v1h-1zM26 21h3v1h-3zM0 22h7v1h-7zM9 22h5v1h-5zM17 22h1v1h-1zM19 22h2v1h-2zM22 22h1v1h-1zM24 22h2v1h-2zM27 22h2v1h-2zM0 23h1v1h-1zM6 23h1v1h-1zM9 23h1v1h-1zM11 23h2v1h-2zM16 23h2v1h-2zM20 23h1v1h-1zM24 23h2v1h-2zM0 24h1v1h-1zM2 24h3v1h-3zM6 24h1v1h-1zM8 24h5v1h-5zM15 24h3v1h-3zM20 24h5v1h-5zM0 25h1v1h-1zM2 25h3v1h-3zM6 25h1v1h-1zM11 25h3v1h-3zM23 25h2v1h-2zM26 25h3v1h-3zM0 26h1v1h-1zM2 26h3v1h-3zM6 26h1v1h-1zM8 26h5v1h-5zM18 26h3v1h-3zM23 26h3v1h-3zM28 26h1v1h-1zM0 27h1v1h-1zM6 27h1v1h-1zM9 27h1v1h-1zM11 27h3v1h-3zM16 27h3v1h-3zM20 27h1v1h-1zM22 27h1v1h-1zM27 27h1v1h-1zM0 28h7v1h-7zM8 28h1v1h-1zM10 28h2v1h-2zM13 28h1v1h-1zM15 28h3v1h-3zM19 28h3v1h-3zM24 28h1v1h-1zM27 28h2v1h-2z"/></svg></div>
+      <div>
+        <p class="scan"><span class="en">Scan with your phone's camera</span><span class="ar">امسح الرمز بكاميرا هاتفك</span></p>
+        <div class="badges">
+          <a class="badge apple" href="https://apps.apple.com/app/id6811419666">
+            <img class="en" src="badges/app-store-en.svg" alt="Download on the App Store">
+            <img class="ar" src="badges/app-store-ar.svg" alt="تنزيل من App Store">
+          </a>
+          <a class="badge play" href="https://play.google.com/store/apps/details?id=com.ahmednmourad.awwab">
+            <img class="en" src="badges/google-play-en.svg" alt="Get it on Google Play">
+            <img class="ar" src="badges/google-play-ar.svg" alt="احصل عليه من Google Play">
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="phones">
+    <div class="phone"><img src="en-status-panel.jpg" data-shot="status-panel" loading="lazy" width="720" height="1467" alt="Logging Asr"></div>
+    <div class="phone mid"><img src="en-day.jpg" data-shot="day" loading="lazy" width="720" height="1392" alt="The Prayers tab"></div>
+    <div class="phone"><img src="en-stats.jpg" data-shot="stats" loading="lazy" width="720" height="1394" alt="Stats for March"></div>
+  </div>
+</main>
+<script>
+  // An Arabic page takes the Arabic captures. The phones load lazily, so the
+  // English ones are swapped out before a browser has asked for them.
+  (function () {
+    if (document.documentElement.lang !== 'ar') return;
+    var alt = { day: 'تبويب الصلوات', 'status-panel': 'تسجيل صلاة العصر', stats: 'إحصائيات شهر مارس' };
+    var images = document.querySelectorAll('img[data-shot]');
+    for (var i = 0; i < images.length; i++) {
+      var shot = images[i].getAttribute('data-shot');
+      images[i].alt = alt[shot];
+      images[i].src = 'ar-' + shot + '.jpg';
+    }
+    document.title = 'أَوَّاب';
+  })();
+</script>
+</body>
+</html>
